@@ -185,14 +185,14 @@ export default function WaitlistPage() {
                     fontFamily: '"Funnel Display", sans-serif',
                   }}
                 >
-                  You're on the list!
+                  You are on the list!
                 </h1>
                 
                 <p
                   className="text-lg leading-relaxed mb-8"
                   style={{ color: 'rgb(121, 131, 140)' }}
                 >
-                  We'll notify you as soon as React-ify is ready to transform your websites into beautiful React components.
+                  We will notify you as soon as React-ify is ready to transform your websites into beautiful React components.
                 </p>
                 
                 <Link

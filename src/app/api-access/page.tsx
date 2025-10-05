@@ -1,10 +1,7 @@
 'use client'
-
-import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowLeft, Code, Zap, Users, Shield, ExternalLink, MessageSquare, DollarSign, Settings, Mail } from 'lucide-react'
 import Link from 'next/link'
-import { Button } from '@/components/ui/Button'
 
 const BackgroundPattern = () => (
   <div className="absolute inset-0 pointer-events-none overflow-hidden">

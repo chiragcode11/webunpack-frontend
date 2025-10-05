@@ -76,10 +76,29 @@ export interface SubmissionResponse {
   feedback_id?: string
 }
 
+export interface ContactSubmission {
+  id: string
+  subject: string
+  message: string
+  status: 'new' | 'in_progress' | 'resolved'
+  ticket_id: string
+  created_at: string
+}
+
+export interface FeedbackSubmission {
+  id: string
+  title: string
+  description: string
+  priority: 'urgent' | 'high' | 'medium' | 'low'
+  feedback_type: 'bug' | 'feature' | 'improvement' | 'general'
+  feedback_id: string
+  created_at: string
+}
+
 export interface UserSubmissions {
   success: boolean
-  contact_submissions: any[]
-  feedback_submissions: any[]
+  contact_submissions: ContactSubmission[]
+  feedback_submissions: FeedbackSubmission[]
 }
 
 export interface DiscoverPagesResponse {
@@ -182,7 +201,7 @@ class ApiService {
       }
       
       return response.text()
-    } catch (error) {
+    } catch (error: unknown) {
       clearTimeout(timeoutId)
       
       if (error instanceof Error) {
@@ -326,7 +345,7 @@ class ApiService {
       
       clearTimeout(timeoutId)
       return response.ok
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('API health check failed:', error)
       return false
     }

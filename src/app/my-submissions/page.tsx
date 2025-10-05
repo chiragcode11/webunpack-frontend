@@ -1,16 +1,39 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
-import { ArrowLeft, MessageSquare, Mail, Clock, CheckCircle, AlertCircle } from 'lucide-react'
+import { ArrowLeft, MessageSquare, Mail } from 'lucide-react'
 import Link from 'next/link'
 import { useAuth } from '@clerk/nextjs'
 import { useApiService } from '@/lib/api'
+import type { UserSubmissions } from '@/lib/api'
+
+interface ContactSubmission {
+  id: string
+  subject: string
+  message: string
+  status: 'new' | 'in_progress' | 'resolved'
+  ticket_id: string
+  created_at: string
+}
+
+interface FeedbackSubmission {
+  id: string
+  title: string
+  description: string
+  priority: 'urgent' | 'high' | 'medium' | 'low'
+  feedback_type: 'bug' | 'feature' | 'improvement'
+  feedback_id: string
+  created_at: string
+}
 
 export default function MySubmissionsPage() {
   const { isSignedIn } = useAuth()
   const api = useApiService()
-  const [submissions, setSubmissions] = useState({ contact_submissions: [], feedback_submissions: [] })
+  const [submissions, setSubmissions] = useState<UserSubmissions>({ 
+    success: false,
+    contact_submissions: [], 
+    feedback_submissions: [] 
+  })
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -78,29 +101,32 @@ export default function MySubmissionsPage() {
                 <p style={{ color: 'rgb(121, 131, 140)' }}>No contact messages yet</p>
               ) : (
                 <div className="space-y-4">
-                  {submissions.contact_submissions.map((submission: any) => (
-                    <div key={submission.id} className="p-4 rounded-lg border" style={{ backgroundColor: 'rgba(22, 24, 32, 0.5)', borderColor: 'rgb(55, 65, 81)' }}>
-                      <div className="flex justify-between items-start mb-2">
-                        <h3 className="font-medium" style={{ color: 'rgb(240, 236, 230)' }}>
-                          {submission.subject}
-                        </h3>
-                        <span className={`px-2 py-1 text-xs rounded ${
-                          submission.status === 'new' ? 'bg-blue-500/20 text-blue-400' : 
-                          submission.status === 'in_progress' ? 'bg-yellow-500/20 text-yellow-400' :
-                          'bg-green-500/20 text-green-400'
-                        }`}>
-                          {submission.status}
-                        </span>
+                  {submissions.contact_submissions.map((submission) => {
+                    const contactSubmission = submission as ContactSubmission
+                    return (
+                      <div key={contactSubmission.id} className="p-4 rounded-lg border" style={{ backgroundColor: 'rgba(22, 24, 32, 0.5)', borderColor: 'rgb(55, 65, 81)' }}>
+                        <div className="flex justify-between items-start mb-2">
+                          <h3 className="font-medium" style={{ color: 'rgb(240, 236, 230)' }}>
+                            {contactSubmission.subject}
+                          </h3>
+                          <span className={`px-2 py-1 text-xs rounded ${
+                            contactSubmission.status === 'new' ? 'bg-blue-500/20 text-blue-400' : 
+                            contactSubmission.status === 'in_progress' ? 'bg-yellow-500/20 text-yellow-400' :
+                            'bg-green-500/20 text-green-400'
+                          }`}>
+                            {contactSubmission.status}
+                          </span>
+                        </div>
+                        <p style={{ color: 'rgb(121, 131, 140)' }} className="text-sm mb-2">
+                          {contactSubmission.message.substring(0, 100)}...
+                        </p>
+                        <div className="flex justify-between text-xs" style={{ color: 'rgb(121, 131, 140)' }}>
+                          <span>Ticket: {contactSubmission.ticket_id}</span>
+                          <span>{new Date(contactSubmission.created_at).toLocaleDateString()}</span>
+                        </div>
                       </div>
-                      <p style={{ color: 'rgb(121, 131, 140)' }} className="text-sm mb-2">
-                        {submission.message.substring(0, 100)}...
-                      </p>
-                      <div className="flex justify-between text-xs" style={{ color: 'rgb(121, 131, 140)' }}>
-                        <span>Ticket: {submission.ticket_id}</span>
-                        <span>{new Date(submission.created_at).toLocaleDateString()}</span>
-                      </div>
-                    </div>
-                  ))}
+                    )
+                  })}
                 </div>
               )}
             </div>
@@ -116,39 +142,42 @@ export default function MySubmissionsPage() {
                 <p style={{ color: 'rgb(121, 131, 140)' }}>No feedback submitted yet</p>
               ) : (
                 <div className="space-y-4">
-                  {submissions.feedback_submissions.map((submission: any) => (
-                    <div key={submission.id} className="p-4 rounded-lg border" style={{ backgroundColor: 'rgba(22, 24, 32, 0.5)', borderColor: 'rgb(55, 65, 81)' }}>
-                      <div className="flex justify-between items-start mb-2">
-                        <h3 className="font-medium" style={{ color: 'rgb(240, 236, 230)' }}>
-                          {submission.title}
-                        </h3>
-                        <div className="flex items-center gap-2">
-                          <span className={`px-2 py-1 text-xs rounded ${
-                            submission.priority === 'urgent' ? 'bg-red-500/20 text-red-400' :
-                            submission.priority === 'high' ? 'bg-orange-500/20 text-orange-400' :
-                            submission.priority === 'medium' ? 'bg-yellow-500/20 text-yellow-400' :
-                            'bg-gray-500/20 text-gray-400'
-                          }`}>
-                            {submission.priority}
-                          </span>
-                          <span className={`px-2 py-1 text-xs rounded ${
-                            submission.feedback_type === 'bug' ? 'bg-red-500/20 text-red-400' :
-                            submission.feedback_type === 'feature' ? 'bg-blue-500/20 text-blue-400' :
-                            'bg-green-500/20 text-green-400'
-                          }`}>
-                            {submission.feedback_type}
-                          </span>
+                  {submissions.feedback_submissions.map((submission) => {
+                    const feedbackSubmission = submission as FeedbackSubmission
+                    return (
+                      <div key={feedbackSubmission.id} className="p-4 rounded-lg border" style={{ backgroundColor: 'rgba(22, 24, 32, 0.5)', borderColor: 'rgb(55, 65, 81)' }}>
+                        <div className="flex justify-between items-start mb-2">
+                          <h3 className="font-medium" style={{ color: 'rgb(240, 236, 230)' }}>
+                            {feedbackSubmission.title}
+                          </h3>
+                          <div className="flex items-center gap-2">
+                            <span className={`px-2 py-1 text-xs rounded ${
+                              feedbackSubmission.priority === 'urgent' ? 'bg-red-500/20 text-red-400' :
+                              feedbackSubmission.priority === 'high' ? 'bg-orange-500/20 text-orange-400' :
+                              feedbackSubmission.priority === 'medium' ? 'bg-yellow-500/20 text-yellow-400' :
+                              'bg-gray-500/20 text-gray-400'
+                            }`}>
+                              {feedbackSubmission.priority}
+                            </span>
+                            <span className={`px-2 py-1 text-xs rounded ${
+                              feedbackSubmission.feedback_type === 'bug' ? 'bg-red-500/20 text-red-400' :
+                              feedbackSubmission.feedback_type === 'feature' ? 'bg-blue-500/20 text-blue-400' :
+                              'bg-green-500/20 text-green-400'
+                            }`}>
+                              {feedbackSubmission.feedback_type}
+                            </span>
+                          </div>
+                        </div>
+                        <p style={{ color: 'rgb(121, 131, 140)' }} className="text-sm mb-2">
+                          {feedbackSubmission.description.substring(0, 100)}...
+                        </p>
+                        <div className="flex justify-between text-xs" style={{ color: 'rgb(121, 131, 140)' }}>
+                          <span>ID: {feedbackSubmission.feedback_id}</span>
+                          <span>{new Date(feedbackSubmission.created_at).toLocaleDateString()}</span>
                         </div>
                       </div>
-                      <p style={{ color: 'rgb(121, 131, 140)' }} className="text-sm mb-2">
-                        {submission.description.substring(0, 100)}...
-                      </p>
-                      <div className="flex justify-between text-xs" style={{ color: 'rgb(121, 131, 140)' }}>
-                        <span>ID: {submission.feedback_id}</span>
-                        <span>{new Date(submission.created_at).toLocaleDateString()}</span>
-                      </div>
-                    </div>
-                  ))}
+                    )
+                  })}
                 </div>
               )}
             </div>

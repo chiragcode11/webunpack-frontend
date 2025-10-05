@@ -7,7 +7,7 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'SiteScraper - Professional Website Extraction',
+  title: 'WebUnpack - Professional Website Extraction',
   description: 'Extract complete websites from Framer, Webflow, WordPress, and more. Clean, organized files with perfect navigation.',
 }
 

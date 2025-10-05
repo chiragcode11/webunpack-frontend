@@ -220,7 +220,15 @@ const BackgroundPattern = () => (
   </div>
 )
 
-const TestimonialCard = ({ quote, name, title, website, domain }: any) => (
+interface TestimonialCardProps {
+  quote: string
+  name: string
+  title: string
+  website: string
+  domain: string
+}
+
+const TestimonialCard = ({ quote, name, title, website, domain }: TestimonialCardProps) => (
   <div
     className="w-full max-w-sm rounded-3xl p-6 pb-10 flex flex-col justify-between"
     style={{
@@ -274,7 +282,17 @@ const TestimonialCard = ({ quote, name, title, website, domain }: any) => (
   </div>
 )
 
-const FAQItem = ({ item, isExpanded, onToggle }: any) => (
+interface FAQItemProps {
+  item: {
+    id: string
+    question: string
+    answer: string
+  }
+  isExpanded: boolean
+  onToggle: () => void
+}
+
+const FAQItem = ({ item, isExpanded, onToggle }: FAQItemProps) => (
   <div className="border-b overflow-hidden" style={{ borderColor: 'rgb(55, 65, 81)' }}>
     <button
       onClick={onToggle}
@@ -627,7 +645,7 @@ export default function HomePage() {
                       </div>
                       <input
                         type="text"
-                        placeholder='query: "https://example.framer.website"'
+                        placeholder={'query: "https://example.framer.website"'}
                         value={url}
                         onChange={(e) => handleUrlChange(e.target.value)}
                         required

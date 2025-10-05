@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowLeft, Mail, MessageCircle, Send, Twitter, Github, Linkedin, CheckCircle, AlertTriangle, DiscIcon } from 'lucide-react'
+import { ArrowLeft, Mail, MessageCircle, Send, Twitter, CheckCircle, AlertTriangle, DiscIcon } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
@@ -108,7 +108,7 @@ export default function ContactPage() {
               Get In Touch
             </h1>
             <p style={{ color: 'rgb(121, 131, 140)' }} className="text-xl max-w-3xl mx-auto leading-relaxed">
-              Have questions, suggestions, or need support? We'd love to hear from you.
+              Have questions, suggestions, or need support? We&apos;d love to hear from you.
             </p>
           </motion.div>
 
@@ -141,7 +141,7 @@ export default function ContactPage() {
                       Message Sent!
                     </h3>
                     <p style={{ color: 'rgb(121, 131, 140)' }} className="mb-4">
-                      Thanks for reaching out. We'll get back to you within 24 hours.
+                      Thanks for reaching out. We will get back to you within 24 hours.
                     </p>
                    <Button onClick={resetForm} variant="secondary">
                       Send Another Message
@@ -175,7 +175,7 @@ export default function ContactPage() {
                       value={formData.subject}
                       onChange={handleInputChange}
                       required
-                      placeholder="What's this about?"
+                      placeholder="What is this about?"
                     />
 
                     <div className="space-y-2">

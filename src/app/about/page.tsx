@@ -1,6 +1,4 @@
 'use client'
-
-import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowLeft, Heart, Target, Zap, Code, Users, Globe } from 'lucide-react'
 import Link from 'next/link'

@@ -12,7 +12,7 @@ import { Select } from '@/components/ui/Select'
 import { LoadingSpinner } from '@/components/ui/LoaderSpinner'
 import { validateURL, URLValidation } from '@/lib/urlValidator'
 import { useApiService, PageInfo, ScrapeRequest, ScrapeJob } from '@/lib/api'
-import { UserProfile, UserUsage } from '@/lib/api'
+import { UserProfile } from '@/lib/api'
 
 interface ScrapeStep {
   id: string
@@ -56,47 +56,47 @@ const BackgroundPattern = () => (
 
 const getUserFriendlyError = (technicalError: string): string => {
   const errorLower = technicalError.toLowerCase()
-  
+
   if (errorLower.includes('network') || errorLower.includes('fetch') || errorLower.includes('connection')) {
     return 'Unable to connect to the server. Please check your internet connection and try again.'
   }
-  
+
   if (errorLower.includes('timeout')) {
     return 'The request took too long to complete. Please try again.'
   }
-  
+
   if (errorLower.includes('unauthorized') || errorLower.includes('401')) {
     return 'Your session has expired. Please sign in again.'
   }
-  
+
   if (errorLower.includes('forbidden') || errorLower.includes('403')) {
     return 'You don\'t have permission to perform this action.'
   }
-  
+
   if (errorLower.includes('not found') || errorLower.includes('404')) {
     return 'The requested resource was not found. Please check the URL and try again.'
   }
-  
+
   if (errorLower.includes('limit') || errorLower.includes('quota')) {
     return 'You\'ve reached your usage limit. Please upgrade your plan to continue.'
   }
-  
+
   if (errorLower.includes('invalid url') || errorLower.includes('malformed')) {
     return 'The URL you entered is not valid. Please check and try again.'
   }
-  
+
   if (errorLower.includes('scrape') || errorLower.includes('extract')) {
     return 'We couldn\'t extract content from this website. It may be protected or temporarily unavailable.'
   }
-  
+
   if (errorLower.includes('file') || errorLower.includes('download')) {
     return 'There was an issue preparing your download. Please try again.'
   }
-  
+
   if (errorLower.includes('pages') || errorLower.includes('discover')) {
     return 'We couldn\'t find pages on this website. Please verify the URL is correct.'
   }
-  
+
   return 'Something went wrong. Please try again or contact support if the problem persists.'
 }
 
@@ -199,7 +199,7 @@ export default function DashboardPage() {
         setJobStatus(status.status)
 
         if (status.status === 'completed') {
-          setScrapeResult((prev: any) => ({
+          setScrapeResult((prev: typeof scrapeResult) => ({
             ...prev,
             status: 'completed'
           }))
@@ -208,11 +208,11 @@ export default function DashboardPage() {
             fetchUserJobs()
           }
         } else if (status.status === 'failed') {
-          const friendlyError = status.error_message 
+          const friendlyError = status.error_message
             ? getUserFriendlyError(status.error_message)
             : 'The export process failed. Please try again.'
           setError(friendlyError)
-          setScrapeResult((prev: any) => ({
+          setScrapeResult((prev: typeof scrapeResult) => ({
             ...prev,
             status: 'failed'
           }))
@@ -521,7 +521,7 @@ export default function DashboardPage() {
                 Welcome back, {user.firstName || 'Developer'}!
               </h1>
               <p style={{ color: 'rgb(121, 131, 140)' }} className="mb-4">
-                Ready to extract some websites? Let's get started.
+                Ready to extract some websites? Lets get started.
               </p>
 
               <div className="flex justify-center space-x-8 text-sm">
@@ -984,7 +984,7 @@ export default function DashboardPage() {
                         className="mb-8"
                         style={{ color: 'rgb(121, 131, 140)' }}
                       >
-                        We're extracting your website files. This may take a few moments...
+                        We are extracting your website files. This may take a few moments...
                       </p>
                     </>
                   )}
