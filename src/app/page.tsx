@@ -645,7 +645,7 @@ export default function HomePage() {
                       </div>
                       <input
                         type="text"
-                        placeholder={'query: "https://example.framer.website"'}
+                        placeholder="query: &quot;https://example.framer.website&quot;"
                         value={url}
                         onChange={(e) => handleUrlChange(e.target.value)}
                         required
