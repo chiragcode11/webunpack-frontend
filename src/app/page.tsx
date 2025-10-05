@@ -101,7 +101,7 @@ const platformLogos = [
 
 const testimonials = [
   {
-    quote: "Simply paste your no-code website link and let us handle the rest. No technical knowledge required—just your URL and you're ready to unlock full control of your website.",
+    quote: "Simply paste your no-code website link and let us handle the rest. No technical knowledge required—just your URL and you are ready to unlock full control of your website.",
     name: 'Step 1:',
     title: 'Enter your website URL',
     website: 'webunpack',
@@ -187,7 +187,7 @@ const faqs = [
   {
     id: '13',
     question: 'Does WebUnpack remove platform branding and badges?',
-    answer: 'Yes. WebUnpack automatically removes "Made with Webflow," "Built on Framer," and similar platform badges from your exported site, giving you a clean, professional result ready for your own branding.'
+    answer: 'Yes. WebUnpack automatically removes Made with Webflow, Built on Framer, and similar platform badges from your exported site, giving you a clean, professional result ready for your own branding.'
   },
   {
     id: '14',
