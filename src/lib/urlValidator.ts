@@ -113,7 +113,10 @@ export function validateURL(url: string, siteType: string): URLValidation {
 
     let warning = undefined
     if (testingSiteTypes.includes(siteType)) {
-      warning = 'This feature is in testing phase and might not work correctly'
+      return {
+        isValid: false,
+        warning: 'This feature is in testing phase and might not work correctly',
+      }
     }
 
     if (!isMatch) {
