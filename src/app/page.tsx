@@ -409,17 +409,6 @@ export default function HomePage() {
 
   const visibleFaqs = showAllFaqs ? faqs : faqs.slice(0, 5)
 
-  if (!isLoaded || isNavigating) {
-    return (
-      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: 'rgb(15, 16, 18)' }}>
-        <LoadingSpinner
-          size="lg"
-          text={isNavigating ? 'Navigating...' : 'Loading WebUnpack...'}
-        />
-      </div>
-    )
-  }
-
   return (
     <div className="min-h-screen" style={{ backgroundColor: 'rgb(15, 16, 18)', color: 'rgb(121, 131, 140)' }}>
       <nav className="fixed top-0 left-0 right-0 z-50 w-full px-4 h-20" style={{ backgroundColor: 'rgb(15, 16, 18)' }}>
