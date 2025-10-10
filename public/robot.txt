@@ -1,0 +1,49 @@
+# Main robots.txt for webunpack.com
+
+User-agent: *
+Allow: /
+Disallow: /dashboard
+Disallow: /my-submissions
+Disallow: /waitlist
+Disallow: /sign-in
+Disallow: /sign-up
+Disallow: /api/
+
+# AI Crawlers
+User-agent: GPTBot
+Allow: /
+Disallow: /dashboard
+Disallow: /my-submissions
+Disallow: /sign-in
+Disallow: /sign-up
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /dashboard
+Disallow: /my-submissions
+Disallow: /sign-in
+Disallow: /sign-up
+
+User-agent: CCBot
+Allow: /
+Disallow: /dashboard
+Disallow: /my-submissions
+Disallow: /sign-in
+Disallow: /sign-up
+
+User-agent: anthropic-ai
+Allow: /
+Disallow: /dashboard
+Disallow: /my-submissions
+Disallow: /sign-in
+Disallow: /sign-up
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /dashboard
+Disallow: /my-submissions
+Disallow: /sign-in
+Disallow: /sign-up
+
+# Sitemap location
+Sitemap: https://webunpack.com/sitemap.xml
